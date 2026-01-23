@@ -1,3 +1,4 @@
+// ================== BANCO DE DADOS (SIMULADO) ==================
 let registros = [
   {
     turma: 'Berçário',
@@ -89,36 +90,43 @@ const alunosData = {
   ],
 };
 
-// ================== FUNÇÕES ==================
+// ================== AUTENTICAÇÃO ==================
 function handleLogout() {
   if (confirm('Deseja sair do sistema?')) {
-    alert('Logout realizado');
+    localStorage.removeItem('auth');
+    window.location.replace('login.html');
   }
 }
 
+// ================== TURMAS ==================
 function renderizarTurmas() {
   const container = document.getElementById('lista-turmas');
+
+  // 👇 evita erro se a página não tiver essa div
+  if (!container) return;
+
   container.innerHTML = '';
 
   Object.keys(alunosData).forEach((turma) => {
     const reg = registros.find((r) => r.turma === turma);
 
     container.innerHTML += `
-      <div class="bg-white rounded-2xl p-6 shadow flex flex-col gap-4">
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow flex flex-col gap-4">
         <div class="flex justify-between items-center">
-          <h3 class="text-xl font-bold">${turma}</h3>
-          <span class="text-xs font-bold px-3 py-1 rounded-full bg-gray-200">
+          <h3 class="text-xl font-bold dark:text-white">${turma}</h3>
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-primary/10 text-primary">
             ${reg?.presentes || 0}/${reg?.total || alunosData[turma].length}
           </span>
         </div>
 
-        <p class="text-sm text-gray-600">
+        <p class="text-sm text-gray-600 dark:text-gray-400">
           Professor: ${reg?.professor || '-'}
         </p>
 
         <button
+          type="button"
           onclick="abrirPresenca('${turma}')"
-          class="mt-auto h-10 bg-blue-600 text-white rounded-xl font-bold"
+          class="mt-auto h-10 bg-primary text-white rounded-xl font-bold"
         >
           Abrir Presença
         </button>
@@ -127,11 +135,21 @@ function renderizarTurmas() {
   });
 }
 
+// ================== MODAL ==================
 function toggleModal() {
-  document.getElementById('modal-registro').classList.toggle('hidden');
-  document.getElementById('container-chamada').classList.add('hidden');
+  const modal = document.getElementById('modal-registro');
+  const containerChamada = document.getElementById('container-chamada');
+
+  if (!modal) return;
+
+  modal.classList.toggle('hidden');
+
+  if (containerChamada) {
+    containerChamada.classList.add('hidden');
+  }
 }
 
+// ================== ABRIR PRESENÇA ==================
 function abrirPresenca(turma) {
   toggleModal();
 
@@ -146,14 +164,19 @@ function abrirPresenca(turma) {
 
   carregarAlunos();
 
-  const checks = document.querySelectorAll('#lista-alunos input');
-  checks.forEach((c, i) => (c.checked = i < (reg?.presentes || 0)));
+  const checks = document.querySelectorAll('#lista-alunos input[type="checkbox"]');
+  checks.forEach((cb, i) => {
+    cb.checked = i < (reg?.presentes || 0);
+  });
 }
 
+// ================== CARREGAR ALUNOS ==================
 function carregarAlunos() {
   const turma = document.getElementById('reg-turma').value;
   const lista = document.getElementById('lista-alunos');
   const container = document.getElementById('container-chamada');
+
+  if (!lista || !container) return;
 
   lista.innerHTML = '';
 
@@ -162,15 +185,16 @@ function carregarAlunos() {
 
     alunosData[turma].forEach((aluno) => {
       lista.innerHTML += `
-        <label class="flex justify-between items-center p-2 rounded hover:bg-gray-100">
-          <span>${aluno}</span>
-          <input type="checkbox" class="size-5">
+        <label class="flex justify-between items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+          <span class="dark:text-white">${aluno}</span>
+          <input type="checkbox" class="size-5 rounded text-primary" />
         </label>
       `;
     });
   }
 }
 
+// ================== SALVAR REGISTRO ==================
 function salvarRegistro(e) {
   e.preventDefault();
 
@@ -178,7 +202,9 @@ function salvarRegistro(e) {
   const presentes = document.querySelectorAll(
     '#lista-alunos input:checked'
   ).length;
-  const total = document.querySelectorAll('#lista-alunos input').length;
+  const total = document.querySelectorAll(
+    '#lista-alunos input'
+  ).length;
 
   registros.unshift({
     turma,
@@ -193,4 +219,7 @@ function salvarRegistro(e) {
   renderizarTurmas();
 }
 
-document.addEventListener('DOMContentLoaded', renderizarTurmas);
+// ================== INICIALIZA ==================
+document.addEventListener('DOMContentLoaded', () => {
+  renderizarTurmas();
+});
