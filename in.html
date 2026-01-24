@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | IBRC</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#137fec',
+              background: '#101922',
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen flex items-center justify-center bg-background">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
+      <div class="text-center mb-6">
+        <h1 class="text-3xl font-extrabold text-gray-800">IBRC</h1>
+        <p class="text-sm text-gray-500">Acesso ao sistema</p>
+      </div>
+
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label class="text-sm font-bold text-gray-600">E-mail</label>
+          <input
+            type="email"
+            id="email"
+            required
+            class="mt-1 w-full rounded-xl border-gray-300"
+            placeholder="admin@ibrc.com.br"
+          />
+        </div>
+
+        <div>
+          <label class="text-sm font-bold text-gray-600">Senha</label>
+          <input
+            type="password"
+            id="senha"
+            required
+            class="mt-1 w-full rounded-xl border-gray-300"
+            placeholder="••••••"
+          />
+        </div>
+
+        <p
+          id="erro"
+          class="hidden text-sm text-red-500 font-semibold"
+        >
+          E-mail ou senha inválidos
+        </p>
+
+        <button
+          type="submit"
+          class="w-full h-11 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition"
+        >
+          Entrar
+        </button>
+      </form>
+      <p class="text-center text-sm text-gray-500 mt-4">
+        Não tem conta?
+        <a href="cadastro.html" class="text-blue-600 font-bold">Cadastrar</a>
+      </p>
+    </div>
+
+    <script src="./js/login.js"></script>
+  </body>
+</html>

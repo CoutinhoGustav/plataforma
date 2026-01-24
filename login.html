@@ -1,86 +1,203 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login | IBRC</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IBRC | Dashboard</title>
 
-    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: '#137fec',
-              background: '#101922',
-            },
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    rel="stylesheet"
+  />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#137fec',
+            'sidebar-dark': '#0a2540',
+            'background-light': '#f6f7f8',
           },
         },
-      };
-    </script>
+      },
+    }
+  </script>
 
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-      }
-    </style>
-  </head>
+  <style>
+    body {
+      font-family: Inter, sans-serif;
+    }
+    .sidebar-active {
+      background-color: rgba(19, 127, 236, 0.2);
+      border-left: 4px solid #137fec;
+    }
+  </style>
+</head>
 
-  <body class="min-h-screen flex items-center justify-center bg-background">
-    <div class="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
-      <div class="text-center mb-6">
-        <h1 class="text-3xl font-extrabold text-gray-800">IBRC</h1>
-        <p class="text-sm text-gray-500">Acesso ao sistema</p>
+<body class="bg-background-light">
+
+<!-- OVERLAY -->
+<div
+  id="overlay"
+  onclick="toggleSidebar()"
+  class="fixed inset-0 bg-black/50 z-30 hidden md:hidden"
+></div>
+
+<!-- SIDEBAR -->
+<aside
+  id="sidebar"
+  class="fixed inset-y-0 left-0 w-72 bg-sidebar-dark text-white z-40
+         transform -translate-x-full md:translate-x-0
+         transition-transform duration-300"
+>
+  <div class="p-6 flex flex-col gap-8 h-full">
+
+    <!-- LOGO -->
+    <div class="flex items-center gap-3">
+      <div class="size-10 rounded-lg bg-primary flex items-center justify-center">
+        <span class="material-symbols-outlined text-white text-2xl">
+          church
+        </span>
       </div>
-
-      <form id="loginForm" class="space-y-4">
-        <div>
-          <label class="text-sm font-bold text-gray-600">E-mail</label>
-          <input
-            type="email"
-            id="email"
-            required
-            class="mt-1 w-full rounded-xl border-gray-300"
-            placeholder="admin@ibrc.com.br"
-          />
-        </div>
-
-        <div>
-          <label class="text-sm font-bold text-gray-600">Senha</label>
-          <input
-            type="password"
-            id="senha"
-            required
-            class="mt-1 w-full rounded-xl border-gray-300"
-            placeholder="••••••"
-          />
-        </div>
-
-        <p
-          id="erro"
-          class="hidden text-sm text-red-500 font-semibold"
-        >
-          E-mail ou senha inválidos
-        </p>
-
-        <button
-          type="submit"
-          class="w-full h-11 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition"
-        >
-          Entrar
-        </button>
-      </form>
-      <p class="text-center text-sm text-gray-500 mt-4">
-        Não tem conta?
-        <a href="cadastro.html" class="text-blue-600 font-bold">Cadastrar</a>
-      </p>
+      <div>
+        <h1 class="text-lg font-bold">IBRC</h1>
+        <p class="text-xs text-white/60 uppercase">Dashboard</p>
+      </div>
     </div>
 
-    <script src="./js/login.js"></script>
+    <!-- NAV -->
+    <nav class="flex flex-col gap-1 flex-1" onclick="closeSidebarOnMobile()">
+      <button
+        onclick="toggleModal()"
+        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
+      >
+        <span class="material-symbols-outlined">add_circle</span>
+        Novo Registro
+      </button>
+
+      <a
+        href="index.html"
+        class="flex items-center gap-3 px-4 py-3 sidebar-active rounded-lg"
+      >
+        <span class="material-symbols-outlined text-primary">list_alt</span>
+        Lista de Presenças
+      </a>
+
+      <a
+        href="turma.html"
+        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
+      >
+        <span class="material-symbols-outlined">groups</span>
+        Turmas
+      </a>
+
+      <a
+        href="configuracoes.html"
+        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
+      >
+        <span class="material-symbols-outlined">settings</span>
+        Configurações
+      </a>
+    </nav>
+
+    <!-- PERFIL -->
+    <div class="border-t border-white/10 pt-4">
+      <div class="flex items-center gap-3 bg-white/5 p-4 rounded-xl">
+        <div
+          class="size-8 rounded-full bg-cover bg-center"
+          style="background-image:url('https://ui-avatars.com/api/?name=Admin+IBRC')"
+        ></div>
+
+        <div>
+          <p class="text-xs font-bold">Admin IBRC</p>
+          <p class="text-[10px] text-white/50">admin@ibrc.com.br</p>
+        </div>
+
+        <button
+          onclick="handleLogout()"
+          class="material-symbols-outlined ml-auto text-white/40 hover:text-red-400"
+          title="Sair"
+        >
+          logout
+        </button>
+      </div>
+    </div>
+
+  </div>
+</aside>
+
+<!-- HEADER (BOTÃO MENU MOBILE) -->
+<header class="md:hidden bg-white p-4 border-b flex items-center gap-4">
+  <button
+    onclick="toggleSidebar()"
+    class="size-10 flex items-center justify-center rounded-lg border bg-gray-50"
+  >
+    <span class="material-symbols-outlined text-2xl">menu</span>
+  </button>
+
+  <h2 class="text-xl font-black">Lista de Presenças</h2>
+</header>
+
+        <!-- TABELA -->
+        <div class="p-4 md:p-8">
+          <div class="bg-white rounded-2xl shadow border overflow-x-auto">
+            <table class="min-w-[800px] w-full">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-6 py-4 text-xs uppercase">Turma</th>
+                  <th class="px-6 py-4 text-xs uppercase">Professor</th>
+                  <th class="px-6 py-4 text-xs uppercase">Data</th>
+                  <th class="px-6 py-4 text-xs uppercase text-center">Presentes</th>
+                  <th class="px-6 py-4 text-xs uppercase text-center">Visitantes</th>
+                  <th class="px-6 py-4 text-xs uppercase text-right">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tabela-corpo"></tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- MODAL -->
+    <div
+      id="modal-registro"
+      class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4"
+    >
+      <form class="bg-white w-full max-w-lg rounded-2xl p-6 space-y-4">
+        <h3 class="text-xl font-bold">Novo Registro</h3>
+
+        <input class="w-full rounded-xl" placeholder="Professor" />
+        <input type="date" class="w-full rounded-xl" />
+
+        <div class="flex flex-col sm:flex-row gap-3 justify-end">
+          <button type="button">Cancelar</button>
+          <button class="bg-primary text-white px-6 py-2 rounded-xl font-bold">
+            Salvar
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar')
+        const overlay = document.getElementById('overlay')
+
+        sidebar.classList.toggle('-translate-x-full')
+        overlay.classList.toggle('hidden')
+      }
+    </script>
+
+    <script src="./js/script.js"></script>
   </body>
 </html>
