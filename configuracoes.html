@@ -1,120 +1,150 @@
 <!DOCTYPE html>
-<html class="light" lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>IBRC | Configurações</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IBRC | Dashboard</title>
 
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              primary: '#137fec',
-              'background-light': '#f6f7f8',
-              'background-dark': '#101922',
-              'sidebar-dark': '#0a2540',
-            },
-            fontFamily: {
-              display: ['Inter', 'sans-serif'],
-            },
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    rel="stylesheet"
+  />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#137fec',
+            'sidebar-dark': '#0a2540',
+            'background-light': '#f6f7f8',
           },
         },
-      };
-    </script>
+      },
+    }
+  </script>
 
-    <style>
-      body { font-family: 'Inter', sans-serif; }
-      .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400; }
-      .sidebar-active { background-color: rgba(19, 127, 236, 0.2); border-left: 4px solid #137fec; }
-    </style>
-  </head>
+  <style>
+    body {
+      font-family: Inter, sans-serif;
+    }
+    .sidebar-active {
+      background-color: rgba(19, 127, 236, 0.2);
+      border-left: 4px solid #137fec;
+    }
+  </style>
+</head>
 
-  <body class="bg-background-light dark:bg-background-dark font-display">
+<body class="bg-background-light">
 
-    <div class="flex min-h-screen">
+<!-- OVERLAY -->
+<div
+  id="overlay"
+  onclick="toggleSidebar()"
+  class="fixed inset-0 bg-black/50 z-30 hidden md:hidden"
+></div>
 
-      <!-- SIDEBAR -->
-      <div class="flex min-h-screen">
+<!-- SIDEBAR -->
+<aside
+  id="sidebar"
+  class="fixed inset-y-0 left-0 w-72 bg-sidebar-dark text-white z-40
+         transform -translate-x-full md:translate-x-0
+         transition-transform duration-300"
+>
+  <div class="p-6 flex flex-col gap-8 h-full">
 
-        <!-- SIDEBAR -->
-        <aside class="w-72 bg-sidebar-dark text-white fixed h-full z-10">
-          <div class="p-6 flex flex-col gap-8 h-full">
-  
-            <div class="flex items-center gap-3">
-              <div class="size-10 rounded-lg bg-primary flex items-center justify-center">
-                <span class="material-symbols-outlined text-white text-2xl">
-                  church
-                </span>
-              </div>
-              <div>
-                <h1 class="text-lg font-bold">IBRC</h1>
-                <p class="text-xs text-white/60 uppercase">Dashboard</p>
-              </div>
-            </div>
-  
-            <nav class="flex flex-col gap-1 flex-1">
-              <button
-                onclick="toggleModal()"
-                class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
-              >
-                <span class="material-symbols-outlined">add_circle</span>
-                Novo Registro
-              </button>
-  
-              <a
-                href="index.html"
-                class="flex items-center gap-3 px-4 py-3 sidebar-active rounded-lg"
-              >
-                <span class="material-symbols-outlined text-primary">list_alt</span>
-                Lista de Presenças
-              </a>
-  
-              <a
-                href="turma.html"
-                class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
-              >
-                <span class="material-symbols-outlined">groups</span>
-                Turmas
-              </a>
-  
-              <a 
-                  href="configuracoes.html"
-                  class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
-                >
-                  <span class="material-symbols-outlined">settings</span>
-                  Configurações
-                </a>
-            </nav>
-  
-            <!-- PERFIL -->
-            <div class="border-t border-white/10 pt-4">
-              <div class="flex items-center gap-3 bg-white/5 p-4 rounded-xl">
-                <div
-                  class="size-8 rounded-full bg-cover bg-center"
-                  style="background-image:url('https://ui-avatars.com/api/?name=Admin+IBRC')"
-                ></div>
-                <div>
-                  <p class="text-xs font-bold">Admin IBRC</p>
-                  <p class="text-[10px] text-white/50">admin@ibrc.com.br</p>
-                </div>
-  
-                <button
-                  onclick="handleLogout()"
-                  class="material-symbols-outlined ml-auto text-white/40 hover:text-red-400"
-                  title="Sair"
-                >
-                  logout
-                </button>
-              </div>
-            </div>
-  
-          </div>
-        </aside>
+    <!-- LOGO -->
+    <div class="flex items-center gap-3">
+      <div class="size-10 rounded-lg bg-primary flex items-center justify-center">
+        <span class="material-symbols-outlined text-white text-2xl">
+          church
+        </span>
+      </div>
+      <div>
+        <h1 class="text-lg font-bold">IBRC</h1>
+        <p class="text-xs text-white/60 uppercase">Dashboard</p>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <nav class="flex flex-col gap-1 flex-1" onclick="closeSidebarOnMobile()">
+      <button
+        onclick="toggleModal()"
+        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
+      >
+        <span class="material-symbols-outlined">add_circle</span>
+        Novo Registro
+      </button>
+
+      <a
+        href="index.html"
+        class="flex items-center gap-3 px-4 py-3 sidebar-active rounded-lg"
+      >
+        <span class="material-symbols-outlined text-primary">list_alt</span>
+        Lista de Presenças
+      </a>
+
+      <a
+        href="turma.html"
+        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
+      >
+        <span class="material-symbols-outlined">groups</span>
+        Turmas
+      </a>
+
+      <a
+        href="configuracoes.html"
+        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
+      >
+        <span class="material-symbols-outlined">settings</span>
+        Configurações
+      </a>
+    </nav>
+
+    <!-- PERFIL -->
+    <div class="border-t border-white/10 pt-4">
+      <div class="flex items-center gap-3 bg-white/5 p-4 rounded-xl">
+        <div
+          class="size-8 rounded-full bg-cover bg-center"
+          style="background-image:url('https://ui-avatars.com/api/?name=Admin+IBRC')"
+        ></div>
+
+        <div>
+          <p class="text-xs font-bold">Admin IBRC</p>
+          <p class="text-[10px] text-white/50">admin@ibrc.com.br</p>
+        </div>
+
+        <button
+          onclick="handleLogout()"
+          class="material-symbols-outlined ml-auto text-white/40 hover:text-red-400"
+          title="Sair"
+        >
+          logout
+        </button>
+      </div>
+    </div>
+
+  </div>
+</aside>
+
+<!-- HEADER (BOTÃO MENU MOBILE) -->
+<header class="md:hidden bg-white p-4 border-b flex items-center gap-4">
+  <button
+    onclick="toggleSidebar()"
+    class="size-10 flex items-center justify-center rounded-lg border bg-gray-50"
+  >
+    <span class="material-symbols-outlined text-2xl">menu</span>
+  </button>
+
+  <h2 class="text-xl font-black">Lista de Presenças</h2>
+</header>
 
       <!-- CONTEÚDO -->
       <main class="flex-1 ml-72 p-8">

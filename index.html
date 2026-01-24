@@ -1,167 +1,155 @@
 <!DOCTYPE html>
-<html class="light" lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IBRC | Dashboard</title>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IBRC | Dashboard</title>
 
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+    rel="stylesheet"
+  />
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-    
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    rel="stylesheet"
+  />
 
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              primary: '#137fec',
-              'background-light': '#f6f7f8',
-              'background-dark': '#101922',
-              'sidebar-dark': '#0a2540',
-            },
-            fontFamily: {
-              display: ['Inter', 'sans-serif'],
-            },
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#137fec',
+            'sidebar-dark': '#0a2540',
+            'background-light': '#f6f7f8',
           },
         },
-      };
-    </script>
+      },
+    }
+  </script>
 
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-      }
-      .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400;
-      }
-      .sidebar-active {
-        background-color: rgba(19, 127, 236, 0.2);
-        border-left: 4px solid #137fec;
-      }
-    </style>
-  </head>
+  <style>
+    body {
+      font-family: Inter, sans-serif;
+    }
+    .sidebar-active {
+      background-color: rgba(19, 127, 236, 0.2);
+      border-left: 4px solid #137fec;
+    }
+  </style>
+</head>
 
-  <body class="bg-background-light dark:bg-background-dark font-display">
+<body class="bg-background-light">
 
-    <!-- 🔐 PROTEÇÃO DE LOGIN -->
-    <script>
-      if (localStorage.getItem('auth') !== 'true') {
-        window.location.href = 'login.html';
-      }
-    </script>
+<!-- OVERLAY -->
+<div
+  id="overlay"
+  onclick="toggleSidebar()"
+  class="fixed inset-0 bg-black/50 z-30 hidden md:hidden"
+></div>
 
-    <div class="flex min-h-screen">
+<!-- SIDEBAR -->
+<aside
+  id="sidebar"
+  class="fixed inset-y-0 left-0 w-72 bg-sidebar-dark text-white z-40
+         transform -translate-x-full md:translate-x-0
+         transition-transform duration-300"
+>
+  <div class="p-6 flex flex-col gap-8 h-full">
 
-      <!-- SIDEBAR -->
-      <aside class="w-72 bg-sidebar-dark text-white fixed h-full z-10">
-        <div class="p-6 flex flex-col gap-8 h-full">
+    <!-- LOGO -->
+    <div class="flex items-center gap-3">
+      <div class="size-10 rounded-lg bg-primary flex items-center justify-center">
+        <span class="material-symbols-outlined text-white text-2xl">
+          church
+        </span>
+      </div>
+      <div>
+        <h1 class="text-lg font-bold">IBRC</h1>
+        <p class="text-xs text-white/60 uppercase">Dashboard</p>
+      </div>
+    </div>
 
-          <div class="flex items-center gap-3">
-            <div class="size-10 rounded-lg bg-primary flex items-center justify-center">
-              <span class="material-symbols-outlined text-white text-2xl">
-                church
-              </span>
-            </div>
-            <div>
-              <h1 class="text-lg font-bold">IBRC</h1>
-              <p class="text-xs text-white/60 uppercase">Dashboard</p>
-            </div>
-          </div>
+    <!-- NAV -->
+    <nav class="flex flex-col gap-1 flex-1" onclick="closeSidebarOnMobile()">
+      <button
+        onclick="toggleModal()"
+        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
+      >
+        <span class="material-symbols-outlined">add_circle</span>
+        Novo Registro
+      </button>
 
-          <nav class="flex flex-col gap-1 flex-1">
-            <button
-              onclick="toggleModal()"
-              class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
-            >
-              <span class="material-symbols-outlined">add_circle</span>
-              Novo Registro
-            </button>
+      <a
+        href="index.html"
+        class="flex items-center gap-3 px-4 py-3 sidebar-active rounded-lg"
+      >
+        <span class="material-symbols-outlined text-primary">list_alt</span>
+        Lista de Presenças
+      </a>
 
-            <a
-              href="index.html"
-              class="flex items-center gap-3 px-4 py-3 sidebar-active rounded-lg"
-            >
-              <span class="material-symbols-outlined text-primary">list_alt</span>
-              Lista de Presenças
-            </a>
+      <a
+        href="turma.html"
+        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
+      >
+        <span class="material-symbols-outlined">groups</span>
+        Turmas
+      </a>
 
-            <a
-              href="turma.html"
-              class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
-            >
-              <span class="material-symbols-outlined">groups</span>
-              Turmas
-            </a>
+      <a
+        href="configuracoes.html"
+        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
+      >
+        <span class="material-symbols-outlined">settings</span>
+        Configurações
+      </a>
+    </nav>
 
-            <a 
-                href="configuracoes.html"
-                class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
-              >
-                <span class="material-symbols-outlined">settings</span>
-                Configurações
-              </a>
-          </nav>
+    <!-- PERFIL -->
+    <div class="border-t border-white/10 pt-4">
+      <div class="flex items-center gap-3 bg-white/5 p-4 rounded-xl">
+        <div
+          class="size-8 rounded-full bg-cover bg-center"
+          style="background-image:url('https://ui-avatars.com/api/?name=Admin+IBRC')"
+        ></div>
 
-          <!-- PERFIL -->
-          <div class="border-t border-white/10 pt-4">
-            <div class="flex items-center gap-3 bg-white/5 p-4 rounded-xl">
-              <div
-                class="size-8 rounded-full bg-cover bg-center"
-                style="background-image:url('https://ui-avatars.com/api/?name=Admin+IBRC')"
-              ></div>
-              <div>
-                <p class="text-xs font-bold">Admin IBRC</p>
-                <p class="text-[10px] text-white/50">admin@ibrc.com.br</p>
-              </div>
-
-              <button
-                onclick="handleLogout()"
-                class="material-symbols-outlined ml-auto text-white/40 hover:text-red-400"
-                title="Sair"
-              >
-                logout
-              </button>
-            </div>
-          </div>
-
+        <div>
+          <p class="text-xs font-bold">Admin IBRC</p>
+          <p class="text-[10px] text-white/50">admin@ibrc.com.br</p>
         </div>
-      </aside>
 
-     
-      <!-- CONTEÚDO -->
-      <main class="flex-1 ml-72">
+        <button
+          onclick="handleLogout()"
+          class="material-symbols-outlined ml-auto text-white/40 hover:text-red-400"
+          title="Sair"
+        >
+          logout
+        </button>
+      </div>
+    </div>
 
-        <!-- HEADER -->
-        <header class="bg-white border-b px-8 h-20 flex items-center justify-between">
-          <div>
-            <h2 class="text-3xl font-black">Lista de Presenças</h2>
-            <p class="text-sm text-gray-500">Controle de classes IBRC</p>
-          </div>
+  </div>
+</aside>
 
-          <button
-            onclick="toggleModal()"
-            class="flex items-center gap-2 bg-primary text-white px-5 py-2 rounded-xl font-bold"
-          >
-            <span class="material-symbols-outlined">add</span>
-            Novo Registro
-          </button>
-        </header>
+<!-- HEADER (BOTÃO MENU MOBILE) -->
+<header class="md:hidden bg-white p-4 border-b flex items-center gap-4">
+  <button
+    onclick="toggleSidebar()"
+    class="size-10 flex items-center justify-center rounded-lg border bg-gray-50"
+  >
+    <span class="material-symbols-outlined text-2xl">menu</span>
+  </button>
+
+  <h2 class="text-xl font-black">Lista de Presenças</h2>
+</header>
 
         <!-- TABELA -->
-        <div class="p-8">
-          <div class="bg-white rounded-2xl shadow border overflow-hidden">
-            <table class="w-full">
+        <div class="p-4 md:p-8">
+          <div class="bg-white rounded-2xl shadow border overflow-x-auto">
+            <table class="min-w-[800px] w-full">
               <thead class="bg-gray-50">
                 <tr>
                   <th class="px-6 py-4 text-xs uppercase">Turma</th>
@@ -179,59 +167,19 @@
       </main>
     </div>
 
-    <!-- MODAL NOVO REGISTRO -->
+    <!-- MODAL -->
     <div
       id="modal-registro"
-      class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50"
+      class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4"
     >
-      <form
-        onsubmit="salvarRegistro(event)"
-        class="bg-white rounded-2xl p-6 w-full max-w-xl space-y-4"
-      >
+      <form class="bg-white w-full max-w-lg rounded-2xl p-6 space-y-4">
         <h3 class="text-xl font-bold">Novo Registro</h3>
 
-        <select
-          id="reg-turma"
-          onchange="carregarAlunos()"
-          required
-          class="w-full rounded-xl"
-        >
-          <option value="">Selecione a turma</option>
-          <option>Berçário</option>
-          <option>Maternal</option>
-          <option>Principiantes</option>
-          <option>Juniores</option>
-          <option>Intermediários</option>
-          <option>Jovens</option>
-          <option>Adultos</option>
-        </select>
+        <input class="w-full rounded-xl" placeholder="Professor" />
+        <input type="date" class="w-full rounded-xl" />
 
-        <input
-          id="reg-professor"
-          required
-          placeholder="Professor"
-          class="w-full rounded-xl"
-        />
-
-        <input
-          id="reg-data"
-          type="date"
-          required
-          class="w-full rounded-xl"
-        />
-
-        <div id="container-chamada" class="hidden">
-          <div id="lista-alunos"></div>
-        </div>
-
-        <textarea
-          id="reg-visitantes"
-          placeholder="Visitantes"
-          class="w-full rounded-xl"
-        ></textarea>
-
-        <div class="flex justify-end gap-3">
-          <button type="button" onclick="toggleModal()">Cancelar</button>
+        <div class="flex flex-col sm:flex-row gap-3 justify-end">
+          <button type="button">Cancelar</button>
           <button class="bg-primary text-white px-6 py-2 rounded-xl font-bold">
             Salvar
           </button>
@@ -239,58 +187,17 @@
       </form>
     </div>
 
-    <!-- MODAL VISUALIZAR -->
-    <div
-      id="modal-visualizar"
-      class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50"
-    >
-      <div class="bg-white rounded-2xl p-6 w-full max-w-xl space-y-4">
-        <div class="flex justify-between items-center">
-          <h3 class="text-xl font-bold">Detalhes do Registro</h3>
-          <button onclick="fecharModalVisualizar()">
-            <span class="material-symbols-outlined">close</span>
-          </button>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4 text-sm">
-          <div>
-            <p class="text-gray-500">Turma</p>
-            <p id="view-turma" class="font-semibold"></p>
-          </div>
-
-          <div>
-            <p class="text-gray-500">Professor</p>
-            <p id="view-professor" class="font-semibold"></p>
-          </div>
-
-          <div>
-            <p class="text-gray-500">Data</p>
-            <p id="view-data" class="font-semibold"></p>
-          </div>
-
-          <div>
-            <p class="text-gray-500">Presentes</p>
-            <p id="view-presentes" class="font-semibold"></p>
-          </div>
-
-          <div class="col-span-2">
-            <p class="text-gray-500">Visitantes</p>
-            <p id="view-visitantes" class="font-semibold"></p>
-          </div>
-        </div>
-
-        <div class="flex justify-end">
-          <button
-            onclick="fecharModalVisualizar()"
-            class="bg-gray-200 px-5 py-2 rounded-xl font-semibold"
-          >
-            Fechar
-          </button>
-        </div>
-      </div>
-    </div>
-
     <!-- SCRIPT -->
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar')
+        const overlay = document.getElementById('overlay')
+
+        sidebar.classList.toggle('-translate-x-full')
+        overlay.classList.toggle('hidden')
+      }
+    </script>
+
     <script src="./js/script.js"></script>
   </body>
 </html>

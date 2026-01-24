@@ -291,7 +291,8 @@ function formatarData(data) {
 
 // ================== SIDEBAR MOBILE ==================
 function toggleSidebar() {
-  document.querySelector('aside')?.classList.toggle('open');
+  document.getElementById('sidebar').classList.toggle('-translate-x-full');
+  document.getElementById('overlay').classList.toggle('hidden');
 }
 
 // ================== INICIALIZA ==================
