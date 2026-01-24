@@ -3,44 +3,74 @@
 }
 
 body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-  color: black;
-  background-color: white;
+  font-family: 'Inter', sans-serif;
 }
 
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
-  gap: 0.5rem;
-  border-bottom: solid 1px #aaa;
-  background-color: #eee;
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400;
 }
 
-nav a {
-  display: inline-block;
-  min-width: 9rem;
-  padding: 0.5rem;
-  border-radius: 0.2rem;
-  border: solid 1px #aaa;
-  text-align: center;
-  text-decoration: none;
-  color: #555;
+.sidebar-active {
+  background-color: rgba(19, 127, 236, 0.2);
+  border-left: 4px solid #137fec;
 }
 
-nav a[aria-current='page'] {
-  color: #000;
-  background-color: #d4d4d4;
-}
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  /* SIDEBAR */
+  aside {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    position: fixed;
+    z-index: 50;
+    width: 80%;
+    max-width: 280px;
+  }
 
-main {
-  padding: 1rem;
-}
+  aside.sidebar-open {
+    transform: translateX(0);
+  }
 
-h1 {
-  font-weight: bold;
-  font-size: 1.5rem;
+  /* CONTEÚDO */
+  main {
+    margin-left: 0 !important;
+    width: 100%;
+  }
+
+  header {
+    padding: 1rem !important;
+    height: auto !important;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  header h2 {
+    font-size: 1.5rem;
+  }
+
+  header p {
+    font-size: 0.875rem;
+  }
+
+  header button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* TABELA */
+  table {
+    min-width: 720px;
+  }
+
+  .overflow-mobile {
+    overflow-x: auto;
+  }
+
+  /* MODAL */
+  #modal-registro form {
+    height: 100%;
+    max-width: 100%;
+    border-radius: 0;
+  }
 }

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>IBRC | Configurações</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#137fec',
+              'background-light': '#f6f7f8',
+              'background-dark': '#101922',
+              'sidebar-dark': '#0a2540',
+            },
+            fontFamily: {
+              display: ['Inter', 'sans-serif'],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+      .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400; }
+      .sidebar-active { background-color: rgba(19, 127, 236, 0.2); border-left: 4px solid #137fec; }
+    </style>
+  </head>
+
+  <body class="bg-background-light dark:bg-background-dark font-display">
+
+    <div class="flex min-h-screen">
+
+      <!-- SIDEBAR -->
+      <div class="flex min-h-screen">
+
+        <!-- SIDEBAR -->
+        <aside class="w-72 bg-sidebar-dark text-white fixed h-full z-10">
+          <div class="p-6 flex flex-col gap-8 h-full">
+  
+            <div class="flex items-center gap-3">
+              <div class="size-10 rounded-lg bg-primary flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-2xl">
+                  church
+                </span>
+              </div>
+              <div>
+                <h1 class="text-lg font-bold">IBRC</h1>
+                <p class="text-xs text-white/60 uppercase">Dashboard</p>
+              </div>
+            </div>
+  
+            <nav class="flex flex-col gap-1 flex-1">
+              <button
+                onclick="toggleModal()"
+                class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
+              >
+                <span class="material-symbols-outlined">add_circle</span>
+                Novo Registro
+              </button>
+  
+              <a
+                href="index.html"
+                class="flex items-center gap-3 px-4 py-3 sidebar-active rounded-lg"
+              >
+                <span class="material-symbols-outlined text-primary">list_alt</span>
+                Lista de Presenças
+              </a>
+  
+              <a
+                href="turma.html"
+                class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
+              >
+                <span class="material-symbols-outlined">groups</span>
+                Turmas
+              </a>
+  
+              <a 
+                  href="configuracoes.html"
+                  class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
+                >
+                  <span class="material-symbols-outlined">settings</span>
+                  Configurações
+                </a>
+            </nav>
+  
+            <!-- PERFIL -->
+            <div class="border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3 bg-white/5 p-4 rounded-xl">
+                <div
+                  class="size-8 rounded-full bg-cover bg-center"
+                  style="background-image:url('https://ui-avatars.com/api/?name=Admin+IBRC')"
+                ></div>
+                <div>
+                  <p class="text-xs font-bold">Admin IBRC</p>
+                  <p class="text-[10px] text-white/50">admin@ibrc.com.br</p>
+                </div>
+  
+                <button
+                  onclick="handleLogout()"
+                  class="material-symbols-outlined ml-auto text-white/40 hover:text-red-400"
+                  title="Sair"
+                >
+                  logout
+                </button>
+              </div>
+            </div>
+  
+          </div>
+        </aside>
+
+      <!-- CONTEÚDO -->
+      <main class="flex-1 ml-72 p-8">
+        <header class="bg-white border-b px-6 h-20 flex items-center">
+          <h2 class="text-3xl font-black">Configurações</h2>
+        </header>
+
+        <div class="mt-8 max-w-3xl space-y-6">
+
+          <!-- Tema -->
+          <div class="bg-white dark:bg-[#1b2735] p-6 rounded-2xl shadow">
+            <h3 class="text-xl font-bold mb-4">Tema</h3>
+            <div class="flex items-center gap-6">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="theme" value="light" class="accent-primary" checked>
+                Claro
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="theme" value="dark" class="accent-primary">
+                Escuro
+              </label>
+            </div>
+          </div>
+
+          <!-- Notificações -->
+          <div class="bg-white dark:bg-[#1b2735] p-6 rounded-2xl shadow">
+            <h3 class="text-xl font-bold mb-4">Notificações</h3>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" class="accent-primary" checked>
+              Receber notificações por e-mail
+            </label>
+          </div>
+
+          <!-- Perfil -->
+          <div class="bg-white dark:bg-[#1b2735] p-6 rounded-2xl shadow">
+            <h3 class="text-xl font-bold mb-4">Perfil</h3>
+            <div class="space-y-3">
+              <input type="text" placeholder="Nome" class="w-full rounded-xl p-2 border border-gray-200 dark:border-gray-700"/>
+              <input type="email" placeholder="Email" class="w-full rounded-xl p-2 border border-gray-200 dark:border-gray-700"/>
+              <button class="bg-primary text-white px-6 py-2 rounded-xl font-bold mt-2">Salvar Alterações</button>
+            </div>
+          </div>
+
+        </div>
+      </main>
+
+    </div>
+
+    <script>
+      // Troca de tema
+      const radios = document.querySelectorAll('input[name="theme"]');
+      radios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          if(e.target.value === 'dark'){
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        });
+      });
+    </script>
+    <script src="./js//script.js"></script>
+  </body>
+</html>
