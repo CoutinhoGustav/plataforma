@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -42,7 +42,7 @@
   </style>
 </head>
 
-<body class="bg-background-light">
+<body class="bg-background-light overflow-x-hidden">
 
 <!-- OVERLAY -->
 <div
@@ -63,9 +63,7 @@
     <!-- LOGO -->
     <div class="flex items-center gap-3">
       <div class="size-10 rounded-lg bg-primary flex items-center justify-center">
-        <span class="material-symbols-outlined text-white text-2xl">
-          church
-        </span>
+        <span class="material-symbols-outlined text-white text-2xl">church</span>
       </div>
       <div>
         <h1 class="text-lg font-bold">IBRC</h1>
@@ -75,34 +73,22 @@
 
     <!-- NAV -->
     <nav class="flex flex-col gap-1 flex-1" onclick="closeSidebarOnMobile()">
-      <button
-        onclick="toggleModal()"
-        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
-      >
+      <button class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg">
         <span class="material-symbols-outlined">add_circle</span>
         Novo Registro
       </button>
 
-      <a
-        href="index.html"
-        class="flex items-center gap-3 px-4 py-3 sidebar-active rounded-lg"
-      >
+      <a href="index.html" class="flex items-center gap-3 px-4 py-3 sidebar-active rounded-lg">
         <span class="material-symbols-outlined text-primary">list_alt</span>
         Lista de Presenças
       </a>
 
-      <a
-        href="turma.html"
-        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
-      >
+      <a href="turma.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg">
         <span class="material-symbols-outlined">groups</span>
         Turmas
       </a>
 
-      <a
-        href="configuracoes.html"
-        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
-      >
+      <a href="configuracoes.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg">
         <span class="material-symbols-outlined">settings</span>
         Configurações
       </a>
@@ -115,17 +101,11 @@
           class="size-8 rounded-full bg-cover bg-center"
           style="background-image:url('https://ui-avatars.com/api/?name=Admin+IBRC')"
         ></div>
-
         <div>
           <p class="text-xs font-bold">Admin IBRC</p>
           <p class="text-[10px] text-white/50">admin@ibrc.com.br</p>
         </div>
-
-        <button
-          onclick="handleLogout()"
-          class="material-symbols-outlined ml-auto text-white/40 hover:text-red-400"
-          title="Sair"
-        >
+        <button class="material-symbols-outlined ml-auto text-white/40 hover:text-red-400">
           logout
         </button>
       </div>
@@ -134,8 +114,8 @@
   </div>
 </aside>
 
-<!-- HEADER (BOTÃO MENU MOBILE) -->
-<header class="md:hidden bg-white p-4 border-b flex items-center gap-4">
+<!-- HEADER MOBILE -->
+<header class="md:hidden bg-white p-4 border-b flex items-center gap-4 sticky top-0 z-20">
   <button
     onclick="toggleSidebar()"
     class="size-10 flex items-center justify-center rounded-lg border bg-gray-50"
@@ -143,71 +123,56 @@
     <span class="material-symbols-outlined text-2xl">menu</span>
   </button>
 
-  <h2 class="text-xl font-black">Lista de Presenças</h2>
+  <h2 class="text-xl font-black">Configurações</h2>
 </header>
 
-      <!-- CONTEÚDO -->
-      <main class="flex-1 ml-72 p-8">
-        <header class="bg-white border-b px-6 h-20 flex items-center">
-          <h2 class="text-3xl font-black">Configurações</h2>
-        </header>
+<!-- CONTEÚDO -->
+<main class="flex-1 p-4 md:p-8 md:ml-72">
 
-        <div class="mt-8 max-w-3xl space-y-6">
+  <!-- HEADER DESKTOP -->
+  <header class="hidden md:flex bg-white border-b px-6 h-20 items-center">
+    <h2 class="text-3xl font-black">Configurações</h2>
+  </header>
 
-          <!-- Tema -->
-          <div class="bg-white dark:bg-[#1b2735] p-6 rounded-2xl shadow">
-            <h3 class="text-xl font-bold mb-4">Tema</h3>
-            <div class="flex items-center gap-6">
-              <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="theme" value="light" class="accent-primary" checked>
-                Claro
-              </label>
-              <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="theme" value="dark" class="accent-primary">
-                Escuro
-              </label>
-            </div>
-          </div>
+  <div class="mt-6 max-w-3xl space-y-6">
 
-          <!-- Notificações -->
-          <div class="bg-white dark:bg-[#1b2735] p-6 rounded-2xl shadow">
-            <h3 class="text-xl font-bold mb-4">Notificações</h3>
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="checkbox" class="accent-primary" checked>
-              Receber notificações por e-mail
-            </label>
-          </div>
-
-          <!-- Perfil -->
-          <div class="bg-white dark:bg-[#1b2735] p-6 rounded-2xl shadow">
-            <h3 class="text-xl font-bold mb-4">Perfil</h3>
-            <div class="space-y-3">
-              <input type="text" placeholder="Nome" class="w-full rounded-xl p-2 border border-gray-200 dark:border-gray-700"/>
-              <input type="email" placeholder="Email" class="w-full rounded-xl p-2 border border-gray-200 dark:border-gray-700"/>
-              <button class="bg-primary text-white px-6 py-2 rounded-xl font-bold mt-2">Salvar Alterações</button>
-            </div>
-          </div>
-
-        </div>
-      </main>
-
+    <div class="bg-white p-6 rounded-2xl shadow">
+      <h3 class="text-xl font-bold mb-4">Tema</h3>
+      <div class="flex gap-6">
+        <label class="flex gap-2 cursor-pointer">
+          <input type="radio" name="theme" checked class="accent-primary">
+          Claro
+        </label>
+        <label class="flex gap-2 cursor-pointer">
+          <input type="radio" name="theme" class="accent-primary">
+          Escuro
+        </label>
+      </div>
     </div>
 
-    <script>
-      // Troca de tema
-      const radios = document.querySelectorAll('input[name="theme"]');
-      radios.forEach(radio => {
-        radio.addEventListener('change', (e) => {
-          if(e.target.value === 'dark'){
-            document.documentElement.classList.add('dark');
-          } else {
-            document.documentElement.classList.remove('dark');
-          }
-        });
-      });
-    </script>
+    <div class="bg-white p-6 rounded-2xl shadow">
+      <h3 class="text-xl font-bold mb-4">Notificações</h3>
+      <label class="flex gap-3 cursor-pointer">
+        <input type="checkbox" checked class="accent-primary">
+        Receber notificações por e-mail
+      </label>
+    </div>
 
+    <div class="bg-white p-6 rounded-2xl shadow">
+      <h3 class="text-xl font-bold mb-4">Perfil</h3>
+      <div class="space-y-3">
+        <input type="text" placeholder="Nome" class="w-full rounded-xl p-2 border">
+        <input type="email" placeholder="Email" class="w-full rounded-xl p-2 border">
+        <button class="bg-primary text-white px-6 py-2 rounded-xl font-bold">
+          Salvar Alterações
+        </button>
+      </div>
+    </div>
 
-    <script src="./js//script.js"></script>
-  </body>
+  </div>
+</main>
+
+<script src="./js/script.js"></script>
+
+</body>
 </html>

@@ -3,19 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IBRC | Dashboard</title>
+  <title>IBRC | Turma</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
-    rel="stylesheet"
-  />
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
   <script>
     tailwind.config = {
@@ -44,7 +37,7 @@
 
 <body class="bg-background-light">
 
-<!-- OVERLAY -->
+<!-- OVERLAY (mobile) -->
 <div
   id="overlay"
   onclick="toggleSidebar()"
@@ -63,9 +56,7 @@
     <!-- LOGO -->
     <div class="flex items-center gap-3">
       <div class="size-10 rounded-lg bg-primary flex items-center justify-center">
-        <span class="material-symbols-outlined text-white text-2xl">
-          church
-        </span>
+        <span class="material-symbols-outlined text-white text-2xl">church</span>
       </div>
       <div>
         <h1 class="text-lg font-bold">IBRC</h1>
@@ -75,34 +66,22 @@
 
     <!-- NAV -->
     <nav class="flex flex-col gap-1 flex-1" onclick="closeSidebarOnMobile()">
-      <button
-        onclick="toggleModal()"
-        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
-      >
+      <button class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg">
         <span class="material-symbols-outlined">add_circle</span>
         Novo Registro
       </button>
 
-      <a
-        href="index.html"
-        class="flex items-center gap-3 px-4 py-3 sidebar-active rounded-lg"
-      >
+      <a href="index.html" class="flex items-center gap-3 px-4 py-3 sidebar-active rounded-lg">
         <span class="material-symbols-outlined text-primary">list_alt</span>
         Lista de Presenças
       </a>
 
-      <a
-        href="turma.html"
-        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
-      >
+      <a href="turma.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg">
         <span class="material-symbols-outlined">groups</span>
         Turmas
       </a>
 
-      <a
-        href="configuracoes.html"
-        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
-      >
+      <a href="configuracoes.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg">
         <span class="material-symbols-outlined">settings</span>
         Configurações
       </a>
@@ -122,7 +101,6 @@
         </div>
 
         <button
-          onclick="handleLogout()"
           class="material-symbols-outlined ml-auto text-white/40 hover:text-red-400"
           title="Sair"
         >
@@ -134,8 +112,8 @@
   </div>
 </aside>
 
-<!-- HEADER (BOTÃO MENU MOBILE) -->
-<header class="md:hidden bg-white p-4 border-b flex items-center gap-4">
+<!-- HEADER MOBILE -->
+<header class="md:hidden bg-white p-4 border-b flex items-center gap-4 sticky top-0 z-20">
   <button
     onclick="toggleSidebar()"
     class="size-10 flex items-center justify-center rounded-lg border bg-gray-50"
@@ -143,29 +121,28 @@
     <span class="material-symbols-outlined text-2xl">menu</span>
   </button>
 
-  <h2 class="text-xl font-black">Lista de Presenças</h2>
+  <h2 class="text-lg font-black truncate">Turmas</h2>
 </header>
 
-      <!-- CONTEÚDO -->
-      <main class="ml-72 flex-1 p-8 space-y-6">
+<!-- CONTEÚDO -->
+<main class="ml-0 md:ml-72 p-4 md:p-8 space-y-6">
 
-        <!-- HEADER -->
-        <header class="bg-white border-b rounded-2xl px-8 py-6">
-          <h1 class="text-3xl font-black">Turmas</h1>
-          <p class="text-gray-500">Gerenciamento de classes da IBRC</p>
-        </header>
+  <!-- HEADER DESKTOP -->
+  <header class="hidden md:block bg-white border-b rounded-2xl px-8 py-6">
+    <h1 class="text-3xl font-black">Turmas</h1>
+    <p class="text-gray-500">Gerenciamento de classes da IBRC</p>
+  </header>
 
-        <!-- GRID DE TURMAS -->
-        <div
-          id="lista-turmas"
-          class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
-        ></div>
+  <!-- GRID -->
+  <div
+    id="lista-turmas"
+    class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
+  ></div>
 
-      </main>
-    </div>
-    
+</main>
 
-    <!-- SCRIPT -->
-    <script src="./js/script.js"></script>
-  </body>
+<!-- SCRIPT MOBILE -->
+<script src="./js/script.js"></script>
+
+</body>
 </html>
