@@ -223,3 +223,11 @@ function salvarRegistro(e) {
 document.addEventListener('DOMContentLoaded', () => {
   renderizarTurmas();
 });
+
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar')
+  const overlay = document.getElementById('overlay')
+
+  sidebar.classList.toggle('-translate-x-full')
+  overlay.classList.toggle('hidden')
+}
