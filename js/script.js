@@ -82,7 +82,7 @@ function closeSidebarOnMobile() {
 }
 
 // =======================================================
-// MODAL
+// MODAL REGISTRO
 // =======================================================
 function toggleModal() {
   const modal = $('modal-registro')
@@ -133,7 +133,6 @@ function abrirPresenca(turma) {
 
   const registros = getRegistros()
   const reg = registros.find(r => r.turma === turma)
-
   if (!reg) return
 
   $('reg-turma').value = turma
@@ -187,68 +186,60 @@ function salvarRegistro(e) {
   renderizarTabela()
 }
 
-
+// =======================================================
+// MODAL TURMAS
+// =======================================================
+let turmaAtual = null
+let alunoIndexAtual = null
 
 function renderizarTurmas() {
-  const container = document.getElementById('lista-turmas')
+  const container = $('lista-turmas')
   if (!container) return
 
   container.innerHTML = ''
-
-  const registros = getRegistros()
+  // Usar apenas os registros padrão para a lista de turmas
+  const registros = registrosDefault
 
   registros.forEach(r => {
     const totalAlunos = alunosData[r.turma]?.length || 0
-
     container.innerHTML += `
       <div class="bg-white rounded-2xl shadow p-6 space-y-3">
         <h3 class="text-xl font-black">${r.turma}</h3>
-
-        <p class="text-sm text-gray-500">
-          Professor: <strong>${r.professor}</strong>
-        </p>
-
-        <p class="text-sm">
-          Alunos: <strong>${totalAlunos}</strong>
-        </p>
-
-        <button
-          onclick="abrirModalTurma('${r.turma}')"
-          class="mt-3 text-primary font-bold"
-        >
-          Mostrar
-        </button>
+        <p class="text-sm text-gray-500">Professor: <strong>${r.professor}</strong></p>
+        <p class="text-sm">Alunos: <strong>${totalAlunos}</strong></p>
+        <button onclick="abrirModalTurma('${r.turma}')" class="mt-3 text-primary font-bold">Mostrar</button>
       </div>
     `
   })
 }
-let turmaAtual = null
+
 
 function abrirModalTurma(turma) {
   turmaAtual = turma
 
-  const modal = document.getElementById('modal-turma')
-  const titulo = document.getElementById('titulo-turma')
-  const professor = document.getElementById('professor-turma')
-  const lista = document.getElementById('lista-alunos-modal')
+  const modal = $('modal-turma')
+  const titulo = $('titulo-turma')
+  const professor = $('professor-turma')
+  const lista = $('lista-alunos-modal')
+
+  if (!modal || !titulo || !professor || !lista) return
 
   const registros = getRegistros()
   const reg = registros.find(r => r.turma === turma)
+  if (!reg) return
 
   titulo.textContent = turma
   professor.textContent = `Professor: ${reg.professor}`
   lista.innerHTML = ''
 
-  alunosData[turma].forEach((aluno, index) => {
+  ;(alunosData[turma] || []).forEach((aluno, index) => {
     lista.innerHTML += `
       <li class="flex justify-between items-center p-2 border rounded-lg">
         <span>${aluno}</span>
-
         <div class="flex gap-2">
           <button onclick="editarAluno(${index})">
             <span class="material-symbols-outlined text-sm">edit</span>
           </button>
-
           <button onclick="excluirAluno(${index})">
             <span class="material-symbols-outlined text-sm text-red-500">delete</span>
           </button>
@@ -258,50 +249,34 @@ function abrirModalTurma(turma) {
   })
 
   modal.classList.remove('hidden')
+  document.body.classList.add('modal-open')
 }
 
 function fecharModalTurma() {
-  document.getElementById('modal-turma').classList.add('hidden')
+  $('modal-turma')?.classList.add('hidden')
+  document.body.classList.remove('modal-open')
 }
 
-function editarAluno(index) {
-  const alunoAtual = alunosData[turmaAtual][index]
-  const novoNome = prompt('Editar nome do aluno:', alunoAtual)
-
-  if (!novoNome) return
-
-  alunosData[turmaAtual][index] = novoNome
-  abrirModalTurma(turmaAtual)
-}
-
+// =======================================================
+// EDITAR / TRANSFERIR ALUNO
+// =======================================================
 function editarAluno(index) {
   alunoIndexAtual = index
+  const modal = $('modal-editar-aluno')
+  if (!modal || turmaAtual == null) return
 
-  document.getElementById('edit-aluno-nome').value =
-    alunosData[turmaAtual][index]
-
-  document.getElementById('edit-aluno-turma').value = turmaAtual
-
-  document.getElementById('modal-editar-aluno').classList.remove('hidden')
+  $('edit-aluno-nome').value = alunosData[turmaAtual][index]
+  $('edit-aluno-turma').value = turmaAtual
+  modal.classList.remove('hidden')
 }
-
-
-function excluirAluno(index) {
-  if (!confirm('Deseja excluir este aluno da turma?')) return
-
-  alunosData[turmaAtual].splice(index, 1)
-  abrirModalTurma(turmaAtual)
-}
-
-let alunoIndexAtual = null
 
 function fecharModalEditarAluno() {
-  document.getElementById('modal-editar-aluno').classList.add('hidden')
+  $('modal-editar-aluno')?.classList.add('hidden')
 }
 
 function salvarEdicaoAluno() {
-  const novoNome = document.getElementById('edit-aluno-nome').value.trim()
-  const novaTurma = document.getElementById('edit-aluno-turma').value
+  const novoNome = $('edit-aluno-nome').value.trim()
+  const novaTurma = $('edit-aluno-turma').value
 
   if (!novoNome) {
     alert('Informe o nome do aluno')
@@ -312,9 +287,7 @@ function salvarEdicaoAluno() {
   alunosData[turmaAtual].splice(alunoIndexAtual, 1)
 
   // Cria turma se não existir
-  if (!alunosData[novaTurma]) {
-    alunosData[novaTurma] = []
-  }
+  if (!alunosData[novaTurma]) alunosData[novaTurma] = []
 
   // Adiciona na nova turma
   alunosData[novaTurma].push(novoNome)
@@ -324,18 +297,23 @@ function salvarEdicaoAluno() {
   renderizarTurmas()
 }
 
+function excluirAluno(index) {
+  if (!confirm('Deseja excluir este aluno da turma?')) return
+
+  alunosData[turmaAtual].splice(index, 1)
+  abrirModalTurma(turmaAtual)
+}
+
 // =======================================================
 // CONFIGURAÇÕES – PERFIL
 // =======================================================
 function carregarPerfil() {
   const user = getUser()
-
   document.querySelectorAll('[data-user-nome]').forEach(el => el.textContent = user.nome)
   document.querySelectorAll('[data-user-email]').forEach(el => el.textContent = user.email)
   document.querySelectorAll('[data-user-foto]').forEach(el => {
     el.style.backgroundImage = `url('${user.foto}')`
   })
-
   $('perfil-nome') && ($('perfil-nome').value = user.nome)
   $('perfil-email') && ($('perfil-email').value = user.email)
 }
@@ -352,7 +330,6 @@ function salvarPerfil() {
 function alterarFoto(input) {
   const file = input.files[0]
   if (!file) return
-
   const reader = new FileReader()
   reader.onload = () => {
     const user = getUser()
