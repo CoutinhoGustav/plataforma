@@ -187,6 +187,143 @@ function salvarRegistro(e) {
   renderizarTabela()
 }
 
+
+
+function renderizarTurmas() {
+  const container = document.getElementById('lista-turmas')
+  if (!container) return
+
+  container.innerHTML = ''
+
+  const registros = getRegistros()
+
+  registros.forEach(r => {
+    const totalAlunos = alunosData[r.turma]?.length || 0
+
+    container.innerHTML += `
+      <div class="bg-white rounded-2xl shadow p-6 space-y-3">
+        <h3 class="text-xl font-black">${r.turma}</h3>
+
+        <p class="text-sm text-gray-500">
+          Professor: <strong>${r.professor}</strong>
+        </p>
+
+        <p class="text-sm">
+          Alunos: <strong>${totalAlunos}</strong>
+        </p>
+
+        <button
+          onclick="abrirModalTurma('${r.turma}')"
+          class="mt-3 text-primary font-bold"
+        >
+          Mostrar
+        </button>
+      </div>
+    `
+  })
+}
+let turmaAtual = null
+
+function abrirModalTurma(turma) {
+  turmaAtual = turma
+
+  const modal = document.getElementById('modal-turma')
+  const titulo = document.getElementById('titulo-turma')
+  const professor = document.getElementById('professor-turma')
+  const lista = document.getElementById('lista-alunos-modal')
+
+  const registros = getRegistros()
+  const reg = registros.find(r => r.turma === turma)
+
+  titulo.textContent = turma
+  professor.textContent = `Professor: ${reg.professor}`
+  lista.innerHTML = ''
+
+  alunosData[turma].forEach((aluno, index) => {
+    lista.innerHTML += `
+      <li class="flex justify-between items-center p-2 border rounded-lg">
+        <span>${aluno}</span>
+
+        <div class="flex gap-2">
+          <button onclick="editarAluno(${index})">
+            <span class="material-symbols-outlined text-sm">edit</span>
+          </button>
+
+          <button onclick="excluirAluno(${index})">
+            <span class="material-symbols-outlined text-sm text-red-500">delete</span>
+          </button>
+        </div>
+      </li>
+    `
+  })
+
+  modal.classList.remove('hidden')
+}
+
+function fecharModalTurma() {
+  document.getElementById('modal-turma').classList.add('hidden')
+}
+
+function editarAluno(index) {
+  const alunoAtual = alunosData[turmaAtual][index]
+  const novoNome = prompt('Editar nome do aluno:', alunoAtual)
+
+  if (!novoNome) return
+
+  alunosData[turmaAtual][index] = novoNome
+  abrirModalTurma(turmaAtual)
+}
+
+function editarAluno(index) {
+  alunoIndexAtual = index
+
+  document.getElementById('edit-aluno-nome').value =
+    alunosData[turmaAtual][index]
+
+  document.getElementById('edit-aluno-turma').value = turmaAtual
+
+  document.getElementById('modal-editar-aluno').classList.remove('hidden')
+}
+
+
+function excluirAluno(index) {
+  if (!confirm('Deseja excluir este aluno da turma?')) return
+
+  alunosData[turmaAtual].splice(index, 1)
+  abrirModalTurma(turmaAtual)
+}
+
+let alunoIndexAtual = null
+
+function fecharModalEditarAluno() {
+  document.getElementById('modal-editar-aluno').classList.add('hidden')
+}
+
+function salvarEdicaoAluno() {
+  const novoNome = document.getElementById('edit-aluno-nome').value.trim()
+  const novaTurma = document.getElementById('edit-aluno-turma').value
+
+  if (!novoNome) {
+    alert('Informe o nome do aluno')
+    return
+  }
+
+  // Remove da turma atual
+  alunosData[turmaAtual].splice(alunoIndexAtual, 1)
+
+  // Cria turma se não existir
+  if (!alunosData[novaTurma]) {
+    alunosData[novaTurma] = []
+  }
+
+  // Adiciona na nova turma
+  alunosData[novaTurma].push(novoNome)
+
+  fecharModalEditarAluno()
+  abrirModalTurma(turmaAtual)
+  renderizarTurmas()
+}
+
 // =======================================================
 // CONFIGURAÇÕES – PERFIL
 // =======================================================
@@ -280,4 +417,5 @@ document.addEventListener('DOMContentLoaded', () => {
   setRegistros(getRegistros())
   carregarPerfil()
   renderizarTabela()
+  renderizarTurmas()
 })
