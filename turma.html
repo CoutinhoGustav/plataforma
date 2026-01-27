@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IBRC | Dashboard</title>
+  <title>IBRC | Turma</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -85,17 +85,17 @@
 
       <a
         href="index.html"
-        class="flex items-center gap-3 px-4 py-3 sidebar-active rounded-lg"
+        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
       >
-        <span class="material-symbols-outlined text-primary">list_alt</span>
+        <span class="material-symbols-outlined">list_alt</span>
         Lista de Presenças
       </a>
 
       <a
         href="turma.html"
-        class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-lg"
+        class="flex items-center gap-3 px-4 py-3 sidebar-active rounded-lg"
       >
-        <span class="material-symbols-outlined">groups</span>
+        <span class="material-symbols-outlined text-primary">groups</span>
         Turmas
       </a>
 
@@ -241,7 +241,7 @@ class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 ba
         >
         <div
           id="lista-alunos"
-          class="grid grid-cols-1 gap-2 bg-gray-50 dark:bg-white-800/50 p-3 rounded-xl border border-dashed dark:border-gray-700 max-h-48 overflow-y-auto custom-scrollbar"
+          class="grid grid-cols-1 gap-2 bg-gray-50 dark:bg-white-600/50 p-3 rounded-xl border border-dashed dark:border-black-600 max-h-50 overflow-y-auto custom-scrollbar"
         ></div>
       </div>
       <div class="space-y-3">
