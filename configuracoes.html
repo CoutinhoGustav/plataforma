@@ -156,41 +156,142 @@
 
   <div class="mt-6 max-w-3xl space-y-6">
 
-    <div class="bg-white p-6 rounded-2xl shadow">
-      <h3 class="text-xl font-bold mb-4">Tema</h3>
-      <div class="flex gap-6">
-        <label class="flex gap-2 cursor-pointer">
-          <input type="radio" name="theme" checked class="accent-primary">
-          Claro
+      <!-- CONTEÚDO CONFIGURAÇÕES -->
+  <section class="max-w-4xl mx-auto bg-white rounded-2xl shadow p-6 space-y-10">
+
+    <!-- PERFIL -->
+    <section>
+      <h2 class="text-xl font-bold mb-4">Perfil</h2>
+
+      <div class="flex items-center gap-6">
+        <div
+          id="perfil-foto"
+          class="size-24 rounded-full bg-gray-200 bg-cover bg-center border"
+        ></div>
+
+        <div>
+          <input
+            type="file"
+            id="input-foto"
+            accept="image/*"
+            class="hidden"
+            onchange="alterarFoto(this)"
+          />
+
+          <button
+            onclick="document.getElementById('input-foto').click()"
+            class="text-primary font-bold hover:underline"
+          >
+            Alterar foto
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+        <div>
+          <label class="font-semibold">Nome</label>
+          <input
+            id="perfil-nome"
+            type="text"
+            class="w-full p-2 border rounded-xl"
+          />
+        </div>
+
+        <div>
+          <label class="font-semibold">Email</label>
+          <input
+            id="perfil-email"
+            type="email"
+            class="w-full p-2 border rounded-xl"
+          />
+        </div>
+      </div>
+
+      <button
+        onclick="salvarPerfil()"
+        class="mt-4 bg-primary text-white px-6 py-2 rounded-xl font-bold"
+      >
+        Salvar alterações
+      </button>
+    </section>
+
+    <!-- NOTIFICAÇÕES -->
+    <section>
+      <h2 class="text-xl font-bold mb-4">Notificações</h2>
+
+      <div class="space-y-3">
+        <label class="flex items-center gap-2">
+          <input id="notif-email" type="checkbox" class="accent-primary" />
+          Receber notificações por email
         </label>
-        <label class="flex gap-2 cursor-pointer">
-          <input type="radio" name="theme" class="accent-primary">
-          Escuro
+
+        <label class="flex items-center gap-2">
+          <input id="notif-sistema" type="checkbox" class="accent-primary" />
+          Notificações do sistema
         </label>
       </div>
-    </div>
 
-    <div class="bg-white p-6 rounded-2xl shadow">
-      <h3 class="text-xl font-bold mb-4">Notificações</h3>
-      <label class="flex gap-3 cursor-pointer">
-        <input type="checkbox" checked class="accent-primary">
-        Receber notificações por e-mail
-      </label>
-    </div>
+      <button
+        onclick="salvarNotificacoes()"
+        class="mt-4 bg-primary text-white px-6 py-2 rounded-xl font-bold"
+      >
+        Salvar notificações
+      </button>
+    </section>
 
-    <div class="bg-white p-6 rounded-2xl shadow">
-      <h3 class="text-xl font-bold mb-4">Perfil</h3>
-      <div class="space-y-3">
-        <input type="text" placeholder="Nome" class="w-full rounded-xl p-2 border">
-        <input type="email" placeholder="Email" class="w-full rounded-xl p-2 border">
-        <button class="bg-primary text-white px-6 py-2 rounded-xl font-bold">
-          Salvar Alterações
+    <!-- SEGURANÇA -->
+    <section>
+      <h2 class="text-xl font-bold mb-4">Segurança</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input
+          id="nova-senha"
+          type="password"
+          placeholder="Nova senha"
+          class="p-2 border rounded-xl"
+        />
+
+        <input
+          id="confirmar-senha"
+          type="password"
+          placeholder="Confirmar senha"
+          class="p-2 border rounded-xl"
+        />
+      </div>
+
+      <button
+        onclick="atualizarSenha()"
+        class="mt-4 bg-primary text-white px-6 py-2 rounded-xl font-bold"
+      >
+        Atualizar senha
+      </button>
+    </section>
+
+    <!-- ZONA DE DESATIVAÇÃO/EXCLUSÃO-->
+    <section class="border-t pt-6">
+      <h2 class="text-xl font-bold text-red-600 mb-4">Desativar/Excluir</h2>
+
+      <div class="flex flex-col md:flex-row gap-4">
+        <button
+          onclick="desativarConta()"
+          class="flex-1 border border-red-400 text-red-600 py-2 rounded-xl font-bold"
+        >
+          Desativar conta
+        </button>
+
+        <button
+          onclick="excluirConta()"
+          class="flex-1 bg-red-600 text-white py-2 rounded-xl font-bold"
+        >
+          Excluir conta
         </button>
       </div>
-    </div>
+    </section>
 
-  </div>
+  </section>
 </main>
+
+
 <!-- MODAL -->
 <div
 id="modal-registro"
