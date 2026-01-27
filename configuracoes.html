@@ -292,57 +292,58 @@
 </main>
 
 
-<!-- MODAL -->
+
  <!-- MODAL REGISTRO -->
- <div id="modal-registro" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-  <div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in duration-200">
-    <div class="px-6 py-4 border-b flex justify-between items-center bg-gray-50/50">
-      <h3 class="text-lg font-bold">Novo Registro de Chamada</h3>
-      <button onclick="toggleModal()" class="text-gray-400 hover:text-gray-600">
-        <span class="material-symbols-outlined">close</span>
-      </button>
-    </div>
-    <div class="p-6 overflow-y-auto custom-scrollbar flex-1">
-      <form id="formRegistro" class="space-y-6" onsubmit="salvarRegistro(event)">
-        <div class="grid grid-cols-2 gap-4">
-          <div class="flex flex-col gap-1.5">
-            <label class="text-xs font-bold text-gray-400 uppercase">Turma</label>
-            <select id="reg-turma" onchange="carregarAlunos()" required class="rounded-xl border-gray-200 text-sm">
-              <option value="">Selecione...</option>
-              <option>Berçário</option>
-              <option>Maternal</option>
-              <option>Principiantes</option>
-              <option>Juniores</option>
-              <option>Intermediários</option>
-              <option>Jovens</option>
-              <option>Adultos</option>
-            </select>
+  <!-- MODAL REGISTRO -->
+  <div id="modal-registro" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in duration-200">
+      <div class="px-6 py-4 border-b flex justify-between items-center bg-gray-50/50">
+        <h3 class="text-lg font-bold">Novo Registro de Chamada</h3>
+        <button onclick="toggleModal()" class="text-gray-400 hover:text-gray-600">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto custom-scrollbar flex-1">
+        <form id="formRegistro" class="space-y-6" onsubmit="salvarRegistro(event)">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-bold text-gray-400 uppercase">Turma</label>
+              <select id="reg-turma" onchange="carregarAlunos()" required class="rounded-xl border-gray-200 text-sm">
+                <option value="">Selecione...</option>
+                <option>Berçário</option>
+                <option>Maternal</option>
+                <option>Principiantes</option>
+                <option>Juniores</option>
+                <option>Intermediários</option>
+                <option>Jovens</option>
+                <option>Adultos</option>
+              </select>
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-bold text-gray-400 uppercase">Data</label>
+              <input type="date" id="reg-data" required class="rounded-xl border-gray-200 text-sm"/>
+            </div>
           </div>
           <div class="flex flex-col gap-1.5">
-            <label class="text-xs font-bold text-gray-400 uppercase">Data</label>
-            <input type="date" id="reg-data" required class="rounded-xl border-gray-200 text-sm"/>
+            <label class="text-xs font-bold text-gray-400 uppercase">Professor Responsável</label>
+            <input type="text" id="reg-professor" required placeholder="Nome do professor" class="rounded-xl border-gray-200 text-sm"/>
           </div>
-        </div>
-        <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-bold text-gray-400 uppercase">Professor Responsável</label>
-          <input type="text" id="reg-professor" required placeholder="Nome do professor" class="rounded-xl border-gray-200 text-sm"/>
-        </div>
-        <div id="container-chamada" class="hidden space-y-3">
-          <label class="text-xs font-bold text-gray-400 uppercase">Chamada de Alunos</label>
-          <div id="lista-alunos" class="grid grid-cols-1 gap-2 bg-gray-50 p-3 rounded-xl border border-dashed max-h-50 overflow-y-auto custom-scrollbar"></div>
-        </div>
-        <div class="space-y-3">
-          <label class="text-xs font-bold text-gray-400 uppercase">Visitantes</label>
-          <textarea id="reg-visitantes" rows="2" class="w-full rounded-xl border-gray-200 text-sm" placeholder="Nomes dos visitantes (separados por vírgula)"></textarea>
-        </div>
-      </form>
-    </div>
-    <div class="px-6 py-4 bg-gray-50 border-t flex justify-end gap-3">
-      <button onclick="toggleModal()" class="px-5 py-2.5 text-sm font-bold text-gray-500">Cancelar</button>
-      <button type="submit" form="formRegistro" class="px-6 py-2.5 rounded-xl bg-primary text-white text-sm font-bold shadow-lg">Salvar Registro</button>
+          <div id="container-chamada" class="hidden space-y-3">
+            <label class="text-xs font-bold text-gray-400 uppercase">Chamada de Alunos</label>
+            <div id="lista-alunos" class="grid grid-cols-1 gap-2 bg-gray-50 p-3 rounded-xl border border-dashed max-h-50 overflow-y-auto custom-scrollbar"></div>
+          </div>
+          <div class="space-y-3">
+            <label class="text-xs font-bold text-gray-400 uppercase">Visitantes</label>
+            <textarea id="reg-visitantes" rows="2" class="w-full rounded-xl border-gray-200 text-sm" placeholder="Nomes dos visitantes (separados por vírgula)"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="px-6 py-4 bg-gray-50 border-t flex justify-end gap-3">
+        <button onclick="toggleModal()" class="px-5 py-2.5 text-sm font-bold text-gray-500">Cancelar</button>
+        <button type="submit" form="formRegistro" class="px-6 py-2.5 rounded-xl bg-primary text-white text-sm font-bold shadow-lg">Salvar Registro</button>
+      </div>
     </div>
   </div>
-</div>
 <script src="./js/script.js"></script>
 
 </body>
