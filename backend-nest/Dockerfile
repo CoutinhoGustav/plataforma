@@ -36,8 +36,10 @@ ENV PORT=3000
 EXPOSE 3000
 
 # Healthcheck
+# Usa 127.0.0.1 (IPv4) porque a app escuta em 0.0.0.0; "localhost" resolve para
+# [::1] (IPv6) no Alpine e o wget falha com "connection refused".
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/ || exit 1
 
 # Iniciar a aplicação
 CMD ["node", "dist/src/main.js"]
