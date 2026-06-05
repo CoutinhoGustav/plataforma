@@ -1,7 +1,8 @@
-import { Controller, Post, Body, Get, UseGuards, Request, Patch, Put, Delete, Query, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, Request, Patch, Put, Delete, Query, Param, ForbiddenException, BadRequestException } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { JwtService } from '@nestjs/jwt';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { AdminRoleGuard } from './admin-role.guard';
 import * as bcrypt from 'bcryptjs';
 
 @Controller('auth')
@@ -53,17 +54,54 @@ export class AuthController {
         };
     }
 
-    @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard, AdminRoleGuard)
     @Get('pending')
     async getPendingUsers() {
         const all = await this.adminService.findAll();
         return all.filter((u: any) => !u.isApproved);
     }
 
-    @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard, AdminRoleGuard)
+    @Get('users')
+    async getAllUsers() {
+        const all = await this.adminService.findAll();
+        return all.map((u: any) => ({
+            id: u.id,
+            name: u.name,
+            email: u.email,
+            role: u.role,
+            isApproved: u.isApproved,
+            createdAt: u.createdAt,
+        }));
+    }
+
+    @UseGuards(JwtAuthGuard, AdminRoleGuard)
     @Patch('approve/:id')
     async approveUser(@Param('id') id: string) {
-        return this.adminService.update(id, { isApproved: true, role: 'admin' });
+        return this.adminService.update(id, { isApproved: true, role: 'user' });
+    }
+
+    @UseGuards(JwtAuthGuard, AdminRoleGuard)
+    @Patch('users/:id/role')
+    async updateUserRole(@Param('id') id: string, @Body() body: any, @Request() req: any) {
+        const { role } = body;
+        if (!['user', 'admin'].includes(role)) {
+            throw new BadRequestException('Papel inválido. Use "user" ou "admin".');
+        }
+        if (id === req.user.userId && role !== 'admin') {
+            throw new BadRequestException('Você não pode rebaixar a si mesmo.');
+        }
+        return this.adminService.update(id, { role });
+    }
+
+    @UseGuards(JwtAuthGuard, AdminRoleGuard)
+    @Delete('users/:id')
+    async deleteUser(@Param('id') id: string, @Request() req: any) {
+        if (id === req.user.userId) {
+            throw new BadRequestException('Você não pode remover a si mesmo.');
+        }
+        await this.adminService.remove(id);
+        return { message: 'Usuário removido com sucesso.' };
     }
 
     @UseGuards(JwtAuthGuard)
