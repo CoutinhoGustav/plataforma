@@ -34,9 +34,11 @@ export const AuthProvider = ({ children }) => {
             // Fallback para mock caso API falhe
             if (email === 'admin@ibrc.com.br' && password === '123456') {
                 const loggedUser = {
+                    id: 'user_1',
                     name: 'Admin IBRC',
                     email: 'admin@ibrc.com.br',
-                    avatar: 'https://ui-avatars.com/api/?name=Admin+IBRC'
+                    avatar: 'https://ui-avatars.com/api/?name=Admin+IBRC',
+                    role: 'admin'
                 };
                 sessionStorage.setItem('auth', 'true');
                 sessionStorage.setItem('user', JSON.stringify(loggedUser));

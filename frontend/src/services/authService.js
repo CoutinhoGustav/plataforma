@@ -46,6 +46,40 @@ export const authService = {
     });
     return response.data;
   },
+
+  // --- Gestão de usuários (somente admin) ---
+  getUsers: async () => {
+    const response = await request({
+      method: 'GET',
+      url: '/auth/users',
+    });
+    return response.data;
+  },
+
+  approveUser: async (id) => {
+    const response = await request({
+      method: 'PATCH',
+      url: `/auth/approve/${id}`,
+    });
+    return response.data;
+  },
+
+  updateUserRole: async (id, role) => {
+    const response = await request({
+      method: 'PATCH',
+      url: `/auth/users/${id}/role`,
+      data: { role },
+    });
+    return response.data;
+  },
+
+  deleteUser: async (id) => {
+    const response = await request({
+      method: 'DELETE',
+      url: `/auth/users/${id}`,
+    });
+    return response.data;
+  },
 };
 
 export default authService;

@@ -73,6 +73,13 @@ const Sidebar = ({ isOpen, onClose, onLogout, onOpenNewRegistry }) => {
                             Turmas
                         </Link>
 
+                        {user?.role === 'admin' && (
+                            <Link to="/usuarios" className={navLinkClass('/usuarios')} onClick={onClose}>
+                                <span className="material-symbols-outlined text-xl">manage_accounts</span>
+                                Usuários
+                            </Link>
+                        )}
+
                         <Link to="/configuracoes" className={navLinkClass('/configuracoes')} onClick={onClose}>
                             <span className="material-symbols-outlined text-xl">settings</span>
                             Configurações

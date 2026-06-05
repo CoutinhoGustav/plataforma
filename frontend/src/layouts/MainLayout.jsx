@@ -20,6 +20,7 @@ const MainLayout = () => {
         switch (location.pathname) {
             case '/': return 'Lista de Presenças';
             case '/turmas': return 'Turmas';
+            case '/usuarios': return 'Usuários';
             case '/configuracoes': return 'Configurações';
             default: return 'IBRC';
         }

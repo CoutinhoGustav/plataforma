@@ -5,6 +5,7 @@ import Cadastro from './pages/Cadastro';
 import Dashboard from './pages/Dashboard';
 import Turma from './pages/Turma';
 import Config from './pages/Config';
+import Usuarios from './pages/Usuarios';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import { DataProvider } from './context/DataContext';
@@ -19,6 +20,7 @@ function App() {
           <Route element={<ProtectedRoute><DataProvider><MainLayout /></DataProvider></ProtectedRoute>}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/turmas" element={<Turma />} />
+            <Route path="/usuarios" element={<Usuarios />} />
             <Route path="/configuracoes" element={<Config />} />
           </Route>
 

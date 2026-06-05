@@ -86,6 +86,26 @@ const mockResponses = {
         },
       ],
     },
+    '/auth/users': {
+      data: [
+        {
+          id: 'user_1',
+          name: 'Admin IBRC',
+          email: 'admin@ibrc.com.br',
+          role: 'admin',
+          isApproved: true,
+          createdAt: '2026-01-01T12:00:00.000Z',
+        },
+        {
+          id: 'user_2',
+          name: 'Membro Pendente',
+          email: 'pendente@ibrc.com.br',
+          role: 'user',
+          isApproved: false,
+          createdAt: '2026-02-01T12:00:00.000Z',
+        },
+      ],
+    },
   },
   POST: {
     '/developers': { data: { id: 'dev_3', name: 'Novo Dev', email: 'novo@example.com' } },
@@ -97,6 +117,7 @@ const mockResponses = {
           name: 'Admin IBRC',
           email: 'admin@ibrc.com.br',
           avatar: 'https://ui-avatars.com/api/?name=Admin+IBRC',
+          role: 'admin',
         },
       },
     },
