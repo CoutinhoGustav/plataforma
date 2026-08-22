@@ -152,8 +152,10 @@ Do not claim tests passed. If you add tests, add the runner and a script in the 
 
 ## Deployment
 
-- Frontend: Vite build + `frontend/vercel.json` SPA rewrites.
-- Backend: `backend-nest/api/index.ts` + `vercel.json`, and/or `Dockerfile` + `docker-compose.prod.yml` (Traefik host in that file: `irbc-backend.gestaoia.cloud`).
+- Frontend: Vite build + `frontend/vercel.json` SPA rewrites. Vercel project `plataforma`.
+- Backend: `backend-nest/api/index.ts` + `vercel.json` (`@vercel/node`). Vercel project `plataforma-r3iz`.
+- Push to `main` deploys both. Preview deploys on other branches/PRs.
+- Local Postgres only: `backend-nest/docker-compose.yml`. Do not add a VPS/Traefik/Docker production stack unless a task asks for it.
 
 Do not change deploy targets in the same PR as a feature unless the task is about deploy.
 
