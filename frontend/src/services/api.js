@@ -1,8 +1,12 @@
 import axios from 'axios';
 
-// Configuração da API
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
+// Production is pinned so a stale Vercel VITE_API_URL (old VPS) cannot win.
+const API_BASE_URL = import.meta.env.PROD
+  ? 'https://plataforma-coral.vercel.app'
+  : (import.meta.env.VITE_API_URL || 'http://localhost:3000');
+const USE_MOCK = import.meta.env.PROD
+  ? false
+  : import.meta.env.VITE_USE_MOCK === 'true';
 
 // Criar instância do axios
 export const apiClient = axios.create({
