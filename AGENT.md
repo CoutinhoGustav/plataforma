@@ -152,8 +152,8 @@ Do not claim tests passed. If you add tests, add the runner and a script in the 
 
 ## Deployment
 
-- Frontend: Vite build + `frontend/vercel.json` SPA rewrites. Vercel project `plataforma`.
-- Backend: `backend-nest/api/index.ts` + `vercel.json` (`@vercel/node`). Vercel project `plataforma-r3iz`.
+- Frontend: Vite build + `frontend/vercel.json` SPA rewrites. Vercel project `plataforma-r3iz`.
+- Backend: NestJS `src/main.ts` as Vercel Function (Fluid). No `api/` + `serverless-http`. Project `plataforma`.
 - Push to `main` deploys both. Preview deploys on other branches/PRs.
 - Local Postgres only: `backend-nest/docker-compose.yml`. Do not add a VPS/Traefik/Docker production stack unless a task asks for it.
 
